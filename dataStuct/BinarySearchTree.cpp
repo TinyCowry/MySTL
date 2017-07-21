@@ -252,4 +252,41 @@ void insert(T x)
     TreeNode<T>* node = new TreeNode<T>{x, NULL, NULL, NULL};
     insert(m_root, node);
 }
+
+template<class T>
+void remove(T x)
+{
+    TreeNode<T>* p = search(T);
+    if(p != NULL)
+        cout << "该元素不存在" << x << endl;
+
+    
+        delete q;
+}
+
+template<class T> 
+TreeNode<T>* remove(TreeNode<T>* root, TreeNode<T>* p)
+{
+    if(p->left == NULL && p->right == NULL)//为单叶子节点
+        if(p->parent == NULL)//为根节点
+        else //不是根节点
+            if(p->parent->left == p)
+                p->parent->left = NULL;
+            else p->parent->right = NULL;
+
+    else if(p->left == NULL || p->right == NULL)//为单支子树
+        if(p == m_root)//为根节点，将子树作为根节点
+            if(p->left == NULL)
+                m_root = p->right;
+            else m_root = p->left;
+        else //不是根节点，将子树连到父节点上
+            if(p->left == NULL)
+                p->right->parent = p->parent;
+            else p->left->parent = p->parent;
+    else //左右子树都不为空，将后继移到该位置
+        TreeNode<T>* q = successor(p);//后继左子树必为空
+        if(q->right != NULL) //右子树不为空
+            q->right->parent = q->parent;//将右子树的父节点连到后继的父节点
+        p->val = q->val;
+}
 #endif //_BINARYSEARCHTREE_
